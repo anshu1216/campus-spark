@@ -1,0 +1,13 @@
+{
+  "name": "Campus Spark — UIC Time Capsule",
+  "short_name": "Campus Spark",
+  "description": "A shared collection of good moments from the UIC community.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f8f1",
+  "theme_color": "#235b45",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

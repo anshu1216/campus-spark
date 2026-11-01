@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#235b45">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <title>Campus Spark — UIC Time Capsule</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --ink: #202b25;
+            --muted: #65736a;
+            --green: #235b45;
+            --lime: #c9e87c;
+            --paper: #f7f8f1;
+            --line: #e4e9dd;
+            --coral: #f09c75
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: 'DM Sans', sans-serif
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit
+        }
+
+        button {
+            cursor: pointer
+        }
+
+        .top {
+            padding: 20px 5.5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--line);
+            background: #fbfcf7
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-family: Manrope, sans-serif;
+            font-weight: 800;
+            letter-spacing: -.5px
+        }
+
+        .logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 13px;
+            background: var(--green);
+            color: var(--lime);
+            display: grid;
+            place-items: center;
+            font-size: 22px
+        }
+
+        .campus {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        .hero {
+            padding: 68px 5.5% 52px;
+            background: radial-gradient(ellipse at 84% 25%, #d9edb9 0, transparent 32%), linear-gradient(120deg, #edf3e6, #f7f8f1 63%);
+            position: relative;
+            overflow: hidden
+        }
+
+        .hero-inner {
+            max-width: 1160px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            align-items: center;
+            gap: 48px
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--green)
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: Manrope, sans-serif
+        }
+
+        h1 {
+            font-size: clamp(42px, 5.5vw, 70px);
+            line-height: 1.03;
+            letter-spacing: -3px;
+            margin: 16px 0
+        }
+
+        .hero p {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #58675d;
+            max-width: 560px
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 26px
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 999px;
+            padding: 13px 20px;
+            font-weight: 700
+        }
+
+        .primary {
+            background: var(--green);
+            color: white
+        }
+
+        .secondary {
+            background: white;
+            color: var(--green);
+            border: 1px solid var(--line)
+        }
+
+        .capsule-art {
+            height: 285px;
+            position: relative;
+            display: grid;
+            place-items: center
+        }
+
+        .orb {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 33% 25%, #e9ffc1, #96c876 47%, #397858 78%);
+            box-shadow: 0 24px 60px #316a4430, inset -15px -20px 35px #174b3430;
+            position: relative
+        }
+
+        .orb:after {
+            content: '';
+            position: absolute;
+            inset: 23px;
+            border: 1px solid #ffffff85;
+            border-radius: 50%
+        }
+
+        .spark {
+            position: absolute;
+            font-size: 27px;
+            filter: drop-shadow(0 2px 5px #57774755);
+            animation: float 4s ease-in-out infinite
+        }
+
+        .s1 {
+            top: 35px;
+            left: 20%
+        }
+
+        .s2 {
+            right: 16%;
+            top: 74px;
+            animation-delay: .5s
+        }
+
+        .s3 {
+            bottom: 43px;
+            left: 27%;
+            animation-delay: 1s
+        }
+
+        .s4 {
+            right: 24%;
+            bottom: 33px;
+            animation-delay: 1.4s
+        }
+
+        @keyframes float {
+            50% {
+                transform: translateY(-9px) rotate(9deg)
+            }
+        }
+
+        .orb-label {
+            position: absolute;
+            z-index: 2;
+            color: #f7ffe9;
+            text-align: center;
+            font-family: Manrope;
+            font-weight: 800;
+            font-size: 18px
+        }
+
+        .orb-label small {
+            display: block;
+            font: 500 12px 'DM Sans';
+            margin-top: 8px;
+            color: #efffdb
+        }
+
+        .wrap {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 42px 5.5% 80px
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 20px
+        }
+
+        .section-head h2 {
+            font-size: 26px;
+            letter-spacing: -.8px;
+            margin: 0 0 6px
+        }
+
+        .section-head p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        .count {
+            padding: 9px 14px;
+            border-radius: 999px;
+            background: #e8f0dc;
+            font-size: 13px;
+            color: var(--green);
+            font-weight: 700
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1.4fr .8fr;
+            gap: 22px
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 25px;
+            box-shadow: 0 6px 24px #23351f07
+        }
+
+        .capsule-panel {
+            min-height: 340px;
+            background: #fffefa;
+            position: relative;
+            overflow: hidden
+        }
+
+        .panel-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .panel-title h3 {
+            margin: 0;
+            font-size: 17px
+        }
+
+        .panel-title span {
+            color: var(--muted);
+            font-size: 12px
+        }
+
+        .story-cloud {
+            height: 265px;
+            position: relative;
+            margin-top: 12px;
+            background-image: radial-gradient(#dce8d0 1px, transparent 1px);
+            background-size: 22px 22px;
+            border-radius: 15px
+        }
+
+        .bubble {
+            position: absolute;
+            max-width: 185px;
+            padding: 11px 14px;
+            border-radius: 18px 18px 18px 4px;
+            background: #e9f3d8;
+            color: #34513d;
+            font-size: 12px;
+            line-height: 1.4;
+            box-shadow: 0 7px 20px #3c5b3112;
+            animation: float 5s ease-in-out infinite
+        }
+
+        .bubble:nth-child(3n) {
+            background: #fff0e6;
+            color: #76523f;
+            border-radius: 18px 18px 4px 18px
+        }
+
+        .bubble:nth-child(3n+1) {
+            background: #e5f0ef;
+            color: #365956
+        }
+
+        .empty {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            color: #839087;
+            font-size: 14px
+        }
+
+        .form-panel {
+            background: #214f3e;
+            color: white
+        }
+
+        .form-panel h3 {
+            font-size: 19px;
+            margin: 0 0 7px
+        }
+
+        .form-panel>p {
+            font-size: 13px;
+            color: #d3e3d7;
+            line-height: 1.55;
+            margin: 0 0 20px
+        }
+
+        .form-panel label {
+            font-size: 12px;
+            color: #e6efe8;
+            display: block;
+            margin: 14px 0 7px
+        }
+
+        .form-panel input,
+        .form-panel textarea,
+        .form-panel select {
+            width: 100%;
+            border: 1px solid #547767;
+            border-radius: 11px;
+            background: #183f31;
+            color: white;
+            padding: 12px;
+            outline: none
+        }
+
+        .form-panel textarea {
+            min-height: 88px;
+            resize: vertical
+        }
+
+        .form-panel input::placeholder,
+        .form-panel textarea::placeholder {
+            color: #a9c0b2
+        }
+
+        .form-panel select {
+            color: #eaf2ec
+        }
+
+        .submit {
+            margin-top: 16px;
+            background: var(--lime);
+            color: #24442f;
+            width: 100%;
+            padding: 13px;
+            border: 0;
+            border-radius: 12px;
+            font-weight: 800
+        }
+
+        .tiny {
+            font-size: 11px !important;
+            color: #c1d6c7 !important;
+            margin-top: 12px !important
+        }
+
+        .lower {
+            display: grid;
+            grid-template-columns: 1.3fr .7fr;
+            gap: 22px;
+            margin-top: 22px
+        }
+
+        .recap {
+            background: #fff9ee;
+            border-color: #f2e6d0
+        }
+
+        .recap-tag {
+            font-size: 11px;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: #a56b38;
+            font-weight: 700
+        }
+
+        .recap h3 {
+            font-size: 21px;
+            margin: 10px 0
+        }
+
+        .recap p {
+            line-height: 1.65;
+            color: #655b4c;
+            font-size: 14px;
+            margin: 0
+        }
+
+        .themes {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px
+        }
+
+        .tag {
+            background: #f4e6cd;
+            border-radius: 999px;
+            padding: 7px 11px;
+            font-size: 11px;
+            color: #795f3e
+        }
+
+        .side-note {
+            background: #f0f4e8
+        }
+
+        .side-note h3 {
+            margin: 0 0 10px;
+            font-size: 17px
+        }
+
+        .side-note p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--muted);
+            margin: 0
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 22px;
+            left: 50%;
+            transform: translate(-50%, 20px);
+            background: #202b25;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 999px;
+            opacity: 0;
+            transition: .25s;
+            pointer-events: none;
+            font-size: 13px
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0)
+        }
+
+        footer {
+            text-align: center;
+            padding: 26px;
+            color: #89938a;
+            font-size: 12px;
+            border-top: 1px solid var(--line)
+        }
+
+        @media(max-width:800px) {
+
+            .hero-inner,
+            .layout,
+            .lower {
+                grid-template-columns: 1fr
+            }
+
+            .hero {
+                padding-top: 45px
+            }
+
+            .capsule-art {
+                height: 245px
+            }
+
+            .hero-inner {
+                gap: 10px
+            }
+
+            .section-head {
+                align-items: start;
+                gap: 14px;
+                flex-direction: column
+            }
+
+            .wrap {
+                padding-top: 30px
+            }
+        }
+
+        @media(max-width:480px) {
+            .top {
+                padding: 15px 5%
+            }
+
+            .campus {
+                max-width: 130px;
+                text-align: right
+            }
+
+            .hero-actions {
+                flex-wrap: wrap
+            }
+
+            .panel {
+                padding: 19px
+            }
+
+            h1 {
+                letter-spacing: -2px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top">
+        <div class="brand">
+            <div class="logo">✦</div>
+            <div>Campus Spark</div>
+        </div>
+        <div class="campus">University Institute of Computing<br>CU, Kharar · Punjab</div>
+    </header>
+    <section class="hero">
+        <div class="hero-inner">
+            <div>
+                <div class="eyebrow">A little good news goes a long way</div>
+                <h1>Our campus,<br>caught in a <span style="color:#3d7957">spark.</span></h1>
+                <p>A living time capsule of the kind, clever, and wonderful things happening at UIC. Drop in a moment
+                    worth remembering and watch our campus story grow.</p>
+                <div class="hero-actions"><button class="btn primary"
+                        onclick="document.querySelector('#story').focus()">Add a spark <span>↗</span></button><button
+                        class="btn secondary"
+                        onclick="document.querySelector('#weekly').scrollIntoView({behavior:'smooth'})">Open this week's
+                        capsule</button></div>
+            </div>
+            <div class="capsule-art">
+                <div class="orb"></div>
+                <div class="orb-label">UIC<br>TIME CAPSULE<small>little moments, kept together</small></div><span
+                    class="spark s1">✦</span><span class="spark s2">✿</span><span class="spark s3">✧</span><span
+                    class="spark s4">☀</span>
+            </div>
+        </div>
+    </section>
+    <main class="wrap">
+        <div class="section-head">
+            <div>
+                <h2>The campus capsule</h2>
+                <p>Every spark is a real moment shared by someone in our community.</p>
+            </div>
+            <div class="count" id="count">0 sparks collected</div>
+        </div>
+        <div class="layout">
+            <section class="panel capsule-panel">
+                <div class="panel-title">
+                    <h3>Floating good things</h3><span>UIC · Kharar</span>
+                </div>
+                <div id="cloud" class="story-cloud">
+                    <div class="empty" id="empty">Your campus time capsule is ready.<br>Be the first to add a spark ✦
+                    </div>
+                </div>
+            </section>
+            <section class="panel form-panel">
+                <h3>Save a good moment</h3>
+                <p>Big wins, tiny kindnesses, fun discoveries—if it made campus brighter, it belongs here.</p>
+                <form id="form"><label for="story">What happened?</label><textarea id="story" maxlength="220"
+                        placeholder="A classmate stayed back to help me understand a tough topic..."
+                        required></textarea><label for="theme">Pick a theme</label><select id="theme">
+                        <option>Kindness</option>
+                        <option>Achievement</option>
+                        <option>Campus life</option>
+                        <option>Creativity</option>
+                        <option>Eco moment</option>
+                        <option>Community</option>
+                    </select><label for="when">When did it happen?</label><select id="when">
+                        <option>This week</option>
+                        <option>Today</option>
+                        <option>This month</option>
+                    </select><button class="submit">Add it to the capsule ✦</button></form>
+                <p class="tiny">Anonymous by default. Please leave out names, phone numbers, and private details. Posts
+                    are saved on this device in this demo.</p>
+            </section>
+        </div>
+        <div class="lower">
+            <section class="panel recap" id="weekly">
+                <div class="recap-tag">✦ This week at UIC</div>
+                <h3 id="recapTitle">A week waiting to be remembered</h3>
+                <p id="recapText">The best campus stories begin with someone sharing a small moment. Add the first spark
+                    and help us write this week's recap.</p>
+                <div class="themes" id="themes"><span class="tag">Your community story starts here</span></div>
+            </section>
+            <section class="panel side-note">
+                <h3>How the capsule works</h3>
+                <p>AI can help turn each submission into a short headline and spot shared themes. In this demo, a
+                    lightweight local headline helper keeps your entries on this device. A real class project version
+                    could connect a language model after your faculty approves the data and API setup.</p>
+            </section>
+        </div>
+    </main>
+    <footer>Made for the UIC community · CU, Kharar, Punjab</footer>
+    <div class="toast" id="toast">Spark added to the capsule ✦</div>
+    <script>
+        const KEY = 'campus-spark-uic-v1'; let items = []; try { items = JSON.parse(localStorage.getItem(KEY) || '[]') } catch (e) { items = [] }
+        const colors = ['#e9f3d8', '#fff0e6', '#e5f0ef', '#f3e8f7', '#f8edc9'];
+        function headline(text, theme) { let s = text.trim().replace(/[.!?]+$/, ''); const lower = s.toLowerCase(); if (/help|explain|teach|notes|study|understand/.test(lower)) return 'A helping hand made learning brighter'; if (/won|award|prize|selected|achievement|competition/.test(lower)) return 'A proud moment for the UIC community'; if (/plant|tree|clean|recycl|waste|green/.test(lower)) return 'A little care for a greener campus'; if (/laugh|smile|welcome|friend|kind/.test(lower)) return 'A small kindness made someone’s day'; if (theme === 'Creativity') return 'A creative spark lit up campus'; if (theme === 'Campus life') return 'A campus moment worth keeping'; return 'A bright moment from around UIC' }
+        function render() { const cloud = document.getElementById('cloud'), empty = document.getElementById('empty'); cloud.querySelectorAll('.bubble').forEach(x => x.remove()); empty.style.display = items.length ? 'none' : 'grid'; items.slice().reverse().slice(0, 9).forEach((it, i) => { const b = document.createElement('div'); b.className = 'bubble'; b.textContent = it.headline; b.style.background = colors[i % colors.length]; b.style.left = (5 + (i * 29) % 66) + '%'; b.style.top = (10 + (i * 41) % 63) + '%'; b.style.animationDelay = (i * .27) + 's'; cloud.appendChild(b) }); document.getElementById('count').textContent = items.length + ' spark' + (items.length === 1 ? '' : 's') + ' collected'; if (items.length) { document.getElementById('recapTitle').textContent = items.length === 1 ? 'One spark to start our story' : items.length + ' little moments, one lovely campus'; document.getElementById('recapText').textContent = 'This week, UIC showed up with ' + items.slice(0, 3).map(x => x.headline.charAt(0).toLowerCase() + x.headline.slice(1)).join('; ') + '. Every shared moment adds another glow to our campus story.'; const counts = {}; items.forEach(x => counts[x.theme] = (counts[x.theme] || 0) + 1); document.getElementById('themes').innerHTML = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 4).map(([k, v]) => '<span class="tag">' + k + ' · ' + v + '</span>').join('') } }
+        document.getElementById('form').addEventListener('submit', e => { e.preventDefault(); const text = document.getElementById('story').value.trim(), theme = document.getElementById('theme').value; if (!text) return; items.push({ headline: headline(text, theme), theme, date: new Date().toISOString() }); try { localStorage.setItem(KEY, JSON.stringify(items)) } catch (e) { } e.target.reset(); render(); const t = document.getElementById('toast'); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200) }); render();
+    </script>
+    <script>if ('serviceWorker' in navigator && location.protocol !== 'file:') { navigator.serviceWorker.register('./sw.js').catch(() => { }) }</script>
+</body>
+
+</html>
